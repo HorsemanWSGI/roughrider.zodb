@@ -5,9 +5,10 @@ from setuptools import setup, find_packages
 version = "0.1"
 
 install_requires = [
+    'ZODB >= 5.6.0',
     'horseman',
+    'transaction',
     'zodburi',
-    'ZODB >= 5.6.0'
 ]
 
 test_requires = [
