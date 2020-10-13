@@ -25,12 +25,12 @@ class ZODB:
     @contextmanager
     def database(self, name, transaction_manager=None):
         db = self.databases[name]
-        if transaction_manager is None:
-            transaction_manager = transaction.manager
         conn = db.open(transaction_manager)
         try:
             yield conn
         finally:
+            if not conn.transaction_manager.isDoomed():
+                conn.transaction_manager.commit()
             conn.close()
 
     def middleware(self, app):
